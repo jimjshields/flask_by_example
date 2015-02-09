@@ -1,5 +1,13 @@
 from flask import Flask
+import os
+
 app = Flask(__name__)
+
+if os.environ.get('APP_SETTINGS', '') == '':
+	app.config.from_object('config')
+else:
+	app.config.from_object(os.environ.get('APP_SETTINGS', ''))
+	
 
 @app.route('/')
 def index():
